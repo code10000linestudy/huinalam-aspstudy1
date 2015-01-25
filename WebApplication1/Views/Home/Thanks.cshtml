@@ -1,0 +1,85 @@
+﻿@model WebApplication1.Models.WarResult
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Thanks</title>
+    <style>
+        body {
+            /*background-color: red;*/
+            background-color: @{
+                if (@Model.IsSelfWin)
+                                   {
+                                       @:green
+                                   }
+                                   else
+                                   {
+                                       @:red
+                                   }
+                              }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>전투 시작!!, @Model.Self.Name vs @Model.Target.Name</h4>
+        <div class="lead">
+            <p>전투 개시!</p>
+            <br />
+            @{
+                if (@Model.Target.Name == Model.Self.Name)
+                {
+                    <p>세기의 대결! 자기 자신과의 싸움이 시작되었다!</p>
+                }
+
+                <p>
+                    @Model.Self.Name 님의 전투력 : @Model.Self.Power
+                </p>
+                <p>
+                    @Model.Target.Name 님의 전투력 : @Model.Target.Power
+                </p>
+
+                <p>전투 개시!</p>
+                <br />
+                <br />
+                <br />
+
+
+                foreach (var msg in @Model.Message)
+                {
+                    <p>@msg</p>
+                }
+                <br />
+                <br />
+                <p>@Model.Result</p>
+                <br />
+            }
+            @*@if (Model.WillAttend == true)
+                {
+                    @:Ture!
+                }
+                else
+                {
+                    @:False!
+                }*@
+        </div>
+    </div>
+    <div>
+        <div class="btn btn-success">
+            @Html.ActionLink("다시 전투!", "RsvpForm")
+        </div>
+        <div class="btn btn-success">
+            @Html.ActionLink("초기화", "Index")
+        </div>
+    </div>
+</body>
+</html>
